@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form onsubmit="handleSignUpDetails(event)">
+        <input type="text" placeholder="name here" id="name" required> 
+        <input type="email" placeholder="email here" id="email" required> 
+        <input type="password" placeholder="password" id="password" required>
+        <button type="submit">signup</button>
+    </form> 
+      <script>
+         function handleSignUpDetails(s){
+            s.preventDefault();
+            let signupName=document.getElementById("name").value.trim()
+            let signupEmail=document.getElementById("email").value.trim()
+            let signupPassword=document.getElementById("password").value.trim()
+    
+            let allusers=JSON.parse(localStorage.getItem("allusers")) || []
+            const existedUser=allusers.find(x=>x.email === signupEmail)
+            if(existedUser){
+                return alert("already user exist with same email")
+            }
+            let newUser={
+                name:signupName,
+                email:signupEmail,
+                password:signupPassword,
+            }
+            allusers.push(newUser)
+            localStorage.setItem("allusers",JSON.stringify(allusers))
+             window.location.href="login.html"
+        }
+      </script>
+</body>
+</html>
